@@ -63,7 +63,7 @@ public class FilmControllerTest {
         }
 
         try {
-            filmController.createFilm(descriptioMax200);
+            filmController.createFilm(descriptionMax200);
         }catch (ValidationException v){
             assertNotEquals("",v.getMessage());
         }
