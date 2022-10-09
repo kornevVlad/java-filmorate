@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
-import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +18,21 @@ public class UserControllerTest {
 
     @BeforeEach
     public void value(){
-        User user = new User("Y@yandex.ru)","Vl","", LocalDate.of(1990,02,20));
+        User user = new User("Y@yandex.ru","Vl","", LocalDate.of(1990,2,20));
         userController.createUser(user);
+    }
+
+    @Test
+    @DisplayName("Проверка сохраненного User")
+    public void equalityUser(){
+
+        for(User user : userController.getUsers()){
+            assertEquals(user.getId(), 1);
+            assertEquals(user.getLogin(), "Vl");
+            assertEquals(user.getName(), "Vl");
+            assertEquals(user.getEmail(), "Y@yandex.ru");
+            assertEquals(user.getBirthday(), LocalDate.of(1990,2,20));
+        }
     }
 
     @Test
@@ -45,9 +57,9 @@ public class UserControllerTest {
     @Test
     @DisplayName("Не валидные значения")
     public void notValidateUser(){
-        User notValidEmail = new User("yandex.ru","Vlad","Влад", LocalDate.of(1990,02,20));
-        User notValidDate = new User("Y@yandex.ru","Vlad","Влад", LocalDate.of(2050,02,20));
-        User notValidLogin = new User("Y@yandex.ru","V l a d","Влад", LocalDate.of(2050,02,20));
+        User notValidEmail = new User("yandex.ru","Vlad","Влад", LocalDate.of(1990,2,20));
+        User notValidDate = new User("Y@yandex.ru","Vlad","Влад", LocalDate.of(2050,2,20));
+        User notValidLogin = new User("Y@yandex.ru","V l a d","Влад", LocalDate.of(2050,2,20));
 
         try {
             userController.createUser(notValidEmail);

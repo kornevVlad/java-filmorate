@@ -1,12 +1,14 @@
 package ru.yandex.practicum.filmorate.controller;
 
 
+
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,20 +16,21 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
     private int id = 1;
     private Map<Integer, User> users = new HashMap<>();
 
-    @GetMapping("/users") //вывод списка пользователей
+    @GetMapping() //вывод списка пользователей
     public Collection<User> getUsers(){
         log.info("Получен запрос Get");
         return users.values();
     }
 
-    @PostMapping(value = "/users") //создание пользователя
-    public User createUser(@RequestBody User user) {
+    @PostMapping() //создание пользователя
+    public User createUser(@Valid @RequestBody User user) {
         log.info("Получен запрос Post");
         validationUser(user);
         user.setId(id);
@@ -37,8 +40,8 @@ public class UserController {
         return user;
     }
 
-    @PutMapping(value = "/users") //обновление пользователя
-    public User updateUser(@RequestBody User user){
+    @PutMapping() //обновление пользователя
+    public User updateUser(@Valid @RequestBody User user){
         log.info("Получен запрос Put");
         if(users.containsKey(user.getId())) {
             validationUser(user);
@@ -50,11 +53,7 @@ public class UserController {
     }
 
     private void validationUser(User user){
-        if(user.getId() < 0){
-            log.info("Отрицательный ID");
-            throw new ValidationException("Отрицательное значение ID");
-
-        }else if(user.getEmail() == null || user.getEmail().isBlank()){
+        if(user.getEmail() == null || user.getEmail().isBlank()){
             log.info("Email пуст");
             throw new ValidationException("Email не может быть пустым");
 

@@ -1,11 +1,13 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.Data;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
 @Data
 public class User {
+    @NotNull(message = "Не корректный Id")
     private int id;
     private String email;       //почта
     private String login;          //логин
