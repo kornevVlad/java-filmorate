@@ -53,17 +53,9 @@ public class UserController {
     }
 
     private void validationUser(User user){
-        if(user.getEmail() == null || user.getEmail().isBlank()){
-            log.info("Email пуст");
-            throw new ValidationException("Email не может быть пустым");
-
-        }else if (!user.getEmail().contains("@")){
-            log.info("Email не содержит @");
-            throw new ValidationException("Email должен содержать символ @");
-
-        }else if(user.getLogin().isBlank() || user.getLogin().contains(" ")) {
-            log.info("Логин пуст или содержит пробелы");
-            throw new ValidationException("Логин не может быть пустым и содержать пробелы");
+        if(user.getLogin().contains(" ")) {
+            log.info("Логин содержит пробелы");
+            throw new ValidationException("Логин содержит пробелы");
 
         }else if(LocalDate.now().isBefore(user.getBirthday())){
             log.info("Не верная дата рождения");
