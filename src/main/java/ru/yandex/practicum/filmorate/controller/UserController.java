@@ -9,9 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 
+
 import javax.validation.Valid;
 import java.util.Collection;
-
+import java.util.List;
 
 
 @RestController
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping() //вывод списка пользователей
-    public Collection<User> getUsers(){
+    public List<User> getUsers(){
         log.info("Получен запрос Get");
         return userService.getUsers();
     }
@@ -57,7 +58,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/friends/common/{otherId}") // Список общих друзей
-    public Collection<User> getUserAndOtherUserFriends(@PathVariable int id, @PathVariable int otherId){
+    public List<User> getUserAndOtherUserFriends(@PathVariable int id, @PathVariable int otherId){
        return userService.getUserFriendAndOtherUserFriend(id,otherId);
     }
 
