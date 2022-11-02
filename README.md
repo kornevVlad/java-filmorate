@@ -1,4 +1,4 @@
 # java-filmorate
 Template repository for Filmorate project.
-![Описание DataBase](https://user-images.githubusercontent.com/106785404/199376497-70e8659b-1793-4ae6-98e7-9622736a6fe2.png)
-![ER_DATABASE](https://user-images.githubusercontent.com/106785404/199383636-3600911f-88fe-49f4-bee8-d0d24f108e6a.png)
+![New ER_DataBase](https://user-images.githubusercontent.com/106785404/199618998-6a009d8d-218f-4917-8bc5-e691fa93d1c3.png)
+![NewDataBase](https://user-images.githubusercontent.com/106785404/199619006-1fb55af8-a002-484b-bdee-4809f7e991d0.png)
