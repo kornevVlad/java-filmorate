@@ -3,12 +3,11 @@ package ru.yandex.practicum.filmorate.storage.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -20,18 +19,17 @@ public class InMemoryUserStorage implements UserStorage {
     protected Map<Integer, User> users = new HashMap<>();
 
     @Override
-    public void createUser(User user) { //Сохранение User
-        validationUser(user);
+    public User createUser(User user) { //Сохранение User
         user.setId(id);
         users.put(id, user);
         id++;
         log.debug("Объект добавлен '{}'",users.size());
+        return getUserId(id);
     }
 
     @Override
     public void updateUser(User user) { // Обновление User
         if(users.containsKey(user.getId())) {
-            validationUser(user);
             users.put(user.getId(), user);
         }else {
             throw new NotFoundException("Пользователь с таким ID не найден");
@@ -44,7 +42,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public User getUserId(int id){
+    public User getUserId(int id){ //получение user по id
         log.info("Get запрос на получение User по Id");
         if(!users.containsKey(id)){
             throw new NotFoundException("Данные не найдены");
@@ -52,20 +50,45 @@ public class InMemoryUserStorage implements UserStorage {
         return users.get(id);
     }
 
-    private void validationUser(User user){ // Верификация User
-        if(user.getLogin().contains(" ")) {
-            log.info("Логин содержит пробелы");
-            throw new ValidationException("Логин содержит пробелы");
+    @Override
+    public void createUserFriends(int id, int friendsId) { //создание друзей
+        User user = users.get(id);
+        User userFriend = users.get(friendsId);
+        user.setFriends(friendsId);
+        userFriend.setFriends(id);
+    }
 
-        }else if(LocalDate.now().isBefore(user.getBirthday())){
-            log.info("Не верная дата рождения");
-            throw new ValidationException("Дата рождения не может быть в будущем");
+    @Override
+    public void deleteUserFriends(int id, int friendsId) { // Удаление User и Friend
+        User user = users.get(id);
+        user.getFriends().remove(friendsId);
 
-        }else if(user.getName() == null){
-            user.setName(user.getLogin());
-        }else if(user.getName().isBlank() ){ // присваивание имени если оно пустое
-            user.setName(user.getLogin());
+        User userFriends = users.get(friendsId);
+        userFriends.getFriends().remove(id);
+    }
+
+    @Override
+    public Collection<User> getCollectionFriends(int id) { // Получение Списка userFriend определенного User
+        List<User> userFriends = new ArrayList<>();
+        User user = users.get(id);
+        for (int i: user.getFriends()){
+            userFriends.add(users.get(i));
         }
-        log.info("Валидация пройдена");
+        return userFriends;
+    }
+
+
+    @Override
+    public List<User> getUserFriendAndOtherUserFriend(int id, int otherId){ // Список друзей, общих с другим пользователем.
+        List<User> jointFriends = new ArrayList<>();
+        User userId = users.get(id);
+        User userOtherId = users.get(otherId);
+
+        List<Integer> listId = userId.getFriends().stream().filter(userOtherId.getFriends()::contains).
+                collect(Collectors.toList());
+        for (Integer i : listId){
+            jointFriends.add(users.get(i));
+        }
+        return jointFriends;
     }
 }

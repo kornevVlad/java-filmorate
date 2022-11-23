@@ -19,6 +19,7 @@ import java.time.LocalDate;
 public class UserControllerTest {
 
     InMemoryUserStorage inMemoryUserStorage = new InMemoryUserStorage();
+
     UserService userService = new UserService(inMemoryUserStorage);
     UserController userController = new UserController(userService);
 
