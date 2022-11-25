@@ -85,7 +85,6 @@ public class FilmDbStorage implements FilmStorage {
                     film.getMpa().getId(),
                     film.getId());
 
-
             String sqlMpa = "UPDATE mpa_film SET film_id = ?, mpa_id = ? ";
             jdbcTemplate.update(sqlMpa, film.getId(), film.getMpa().getId());
 
@@ -125,7 +124,6 @@ public class FilmDbStorage implements FilmStorage {
             );
 
             setFilmMpa(film);
-
             setFilmGenres(film);
 
             films.add(film);
@@ -187,7 +185,6 @@ public class FilmDbStorage implements FilmStorage {
             );
 
             setFilmMpa(film);
-
             filmsPopular.add(film);
         }
         return  filmsPopular;
