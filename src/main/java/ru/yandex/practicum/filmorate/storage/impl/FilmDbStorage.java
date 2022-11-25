@@ -69,10 +69,9 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void updateFilm(Film film) { //обновление фильма
         log.info("обновление film в бд");
-        SqlRowSet filmRows = jdbcTemplate.queryForRowSet("SELECT * FROM films WHERE film_id = ?", film.getId());
 
-        String sqlMPA = "DELETE FROM mpa_film WHERE film_id = ?";
-        jdbcTemplate.update(sqlMPA, film.getId());
+        // SELECT проверяет есть ли значение в бд
+        SqlRowSet filmRows = jdbcTemplate.queryForRowSet("SELECT * FROM films WHERE film_id = ?", film.getId());
 
         if(filmRows.next()) {
             String sql = "UPDATE films SET " +
@@ -87,11 +86,12 @@ public class FilmDbStorage implements FilmStorage {
                     film.getId());
 
 
-            String sqlMpa = "INSERT INTO mpa_film(film_id, mpa_id) VALUES(?,?)";
+            String sqlMpa = "UPDATE mpa_film SET film_id = ?, mpa_id = ? ";
             jdbcTemplate.update(sqlMpa, film.getId(), film.getMpa().getId());
 
             setFilmMpa(film);
 
+            //DELETE очищает все значения в бд данного фильма
             String sqlDeleteGenre = "DELETE FROM genre_film WHERE film_id = ?";
             jdbcTemplate.update(sqlDeleteGenre, film.getId());
 

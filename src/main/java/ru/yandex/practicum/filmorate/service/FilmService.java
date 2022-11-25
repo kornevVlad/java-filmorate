@@ -17,7 +17,7 @@ import java.util.*;
 @Slf4j
 public class FilmService {
 
-    FilmStorage filmStorage;
+    private FilmStorage filmStorage;
 
     @Autowired
     public FilmService(FilmStorage filmStorage) {

@@ -47,18 +47,15 @@ create table GENRE_FILM
 create table MPA_FILM
 (
     FILM_ID INTEGER not null,
-    MPA_ID  INTEGER auto_increment,
-    constraint MPA_FILM_PK
-        primary key (FILM_ID),
+    MPA_ID  INTEGER not null,
     constraint MPA_FILM_FILMS_FILM_ID_FK
-        foreign key (FILM_ID) references FILMS,
+        foreign key (FILM_ID) references FILMS (FILM_ID),
     constraint "mpa_film_MPA_null_fk"
         foreign key (MPA_ID) references MPA (MPA_ID)
 );
 
-
 --ПОЛЬЗОВАТЕЛЬ
-create table USER_LIST
+CREATE TABLE  USER_LIST
 (
     USER_ID   INTEGER auto_increment
         unique,

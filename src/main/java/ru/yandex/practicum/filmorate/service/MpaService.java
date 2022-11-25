@@ -11,7 +11,7 @@ import java.util.Collection;
 @Service
 public class MpaService {
 
-    MpaStorage mpaStorage;
+    private MpaStorage mpaStorage;
 
 
     @Autowired
