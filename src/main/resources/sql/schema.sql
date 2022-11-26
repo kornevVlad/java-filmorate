@@ -1,5 +1,5 @@
 --ФИЛЬМ
-create table FILMS
+CREATE TABLE IF NOT EXISTS FILMS
 (
     FILM_ID      INTEGER auto_increment
         unique,
@@ -13,7 +13,7 @@ create table FILMS
 );
 
 --ЖАНР
-create table GENRE
+CREATE TABLE IF NOT EXISTS GENRE
 (
     GENRE_ID   INTEGER auto_increment
         unique,
@@ -23,7 +23,7 @@ create table GENRE
 );
 
 --MPA
-create table MPA
+CREATE TABLE IF NOT EXISTS MPA
 (
     MPA_ID   INTEGER auto_increment
         unique,
@@ -33,7 +33,7 @@ create table MPA
 );
 
 --ЖАНР_ФИЛЬМА
-create table GENRE_FILM
+CREATE TABLE IF NOT EXISTS GENRE_FILM
 (
     FILM_ID  INTEGER auto_increment,
     GENRE_ID INTEGER not null,
@@ -44,7 +44,7 @@ create table GENRE_FILM
 );
 
 --MPA_ФИЛЬМА
-create table MPA_FILM
+CREATE TABLE IF NOT EXISTS MPA_FILM
 (
     FILM_ID INTEGER not null,
     MPA_ID  INTEGER not null,
@@ -55,7 +55,7 @@ create table MPA_FILM
 );
 
 --ПОЛЬЗОВАТЕЛЬ
-CREATE TABLE  USER_LIST
+CREATE TABLE IF NOT EXISTS USER_LIST
 (
     USER_ID   INTEGER auto_increment
         unique,
@@ -69,7 +69,7 @@ CREATE TABLE  USER_LIST
 );
 
 --ДРУЗЬЯ_ПОЛЬЗОВАТЕЛЯ
-create table USER_FRIENDS
+CREATE TABLE IF NOT EXISTS USER_FRIENDS
 (
     USERFRIENDS_ID   INTEGER auto_increment
         unique,
@@ -82,7 +82,7 @@ create table USER_FRIENDS
 );
 
 --ЛАЙКИ
-create table LIKEFILM
+CREATE TABLE IF NOT EXISTS LIKEFILM
 (
     FILM_ID INTEGER auto_increment,
     USER_ID INTEGER auto_increment,
