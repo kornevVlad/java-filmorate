@@ -35,24 +35,29 @@ CREATE TABLE IF NOT EXISTS MPA
 --ЖАНР_ФИЛЬМА
 CREATE TABLE IF NOT EXISTS GENRE_FILM
 (
-    FILM_ID  INTEGER auto_increment,
-    GENRE_ID INTEGER not null,
-    constraint "GENRE_FILM_FILMS_null_fk"
-        foreign key (FILM_ID) references FILMS,
-    constraint "GENRE_FILM_GENRE_null_fk"
-        foreign key (GENRE_ID) references GENRE
+    FILM_ID       INTEGER auto_increment,
+    GENRE_ID      INTEGER not null,
+    ID_GENRE_FILM INTEGER auto_increment
+        unique,
+    constraint GENRE_FILM_PK
+        primary key (ID_GENRE_FILM),
+    constraint "genre_film_FILMS_null_fk"
+        foreign key (FILM_ID) references FILMS (FILM_ID),
+    constraint "genre_film_GENRE_null_fk"
+        foreign key (GENRE_ID) references GENRE (GENRE_ID)
 );
 
 --MPA_ФИЛЬМА
 CREATE TABLE IF NOT EXISTS MPA_FILM
 (
     FILM_ID INTEGER not null,
-    MPA_ID  INTEGER not null,
-    constraint MPA_FILM_FILMS_FILM_ID_FK
-        foreign key (FILM_ID) references FILMS (FILM_ID),
+    MPA_ID  INTEGER auto_increment,
+    constraint MPA_FILM_PK
+        primary key (FILM_ID),
     constraint "mpa_film_MPA_null_fk"
         foreign key (MPA_ID) references MPA (MPA_ID)
 );
+
 
 --ПОЛЬЗОВАТЕЛЬ
 CREATE TABLE IF NOT EXISTS USER_LIST

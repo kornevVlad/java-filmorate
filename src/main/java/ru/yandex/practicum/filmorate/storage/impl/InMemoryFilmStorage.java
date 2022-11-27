@@ -57,7 +57,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     public void createLikeFilm(int id, int userId) { // Добавление Like в Film
         log.info("Put добавление лайка");
         Film film = films.get(id);
-        //film.setLikeFilm(userId);
+        film.setLikeFilm(userId);
         log.info("Лайк добавлен");
     }
 
@@ -65,7 +65,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     public void deleteLikeFilm(int id, int userId) { // Удалаение Like в Film
         log.info("DELETE удаление лайка");
         Film film = films.get(id);
-        //film.getLikeFilm().remove(userId);
+        film.getLikeFilm().remove(userId);
         log.info("Лайк удален");
     }
 

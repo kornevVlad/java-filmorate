@@ -85,8 +85,8 @@ public class FilmDbStorage implements FilmStorage {
                     film.getMpa().getId(),
                     film.getId());
 
-            String sqlMpa = "UPDATE mpa_film SET film_id = ?, mpa_id = ? ";
-            jdbcTemplate.update(sqlMpa, film.getId(), film.getMpa().getId());
+            String sqlMpa = "UPDATE mpa_film SET film_id = ?, mpa_id = ? WHERE film_id = ?";
+            jdbcTemplate.update(sqlMpa, film.getId(), film.getMpa().getId(), film.getId());
 
             setFilmMpa(film);
 
@@ -103,7 +103,7 @@ public class FilmDbStorage implements FilmStorage {
             }
 
             setFilmGenres(film);
-            log.info("film обновлен");
+            log.info("film обновлен {} ", film );
         } else {
             log.info("Фильм с идентификатором {} не найден.", film.getId());
             throw new NotFoundException("Данные не найдены");
