@@ -18,3 +18,9 @@ alter table MPA_FILM alter column MPA_ID restart with 1;
 
 DELETE  FROM FILMS WHERE film_ID<100;
 alter table FILMS alter column film_ID restart with 1;
+
+DELETE  from GENRE WHERE GENRE_ID <100;
+alter table GENRE alter column GENRE_ID restart with 1;
+
+DELETE  from MPA WHERE MPA_ID <100;
+alter table MPA alter column MPA_ID restart with 1;
