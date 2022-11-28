@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS GENRE
     GENRE_ID   INTEGER auto_increment
         unique,
     GENRE_NAME CHARACTER VARYING(40) not null,
-    constraint "CENRE_pk"
+    constraint "GENRE_pk"
         primary key (GENRE_ID)
 );
 
@@ -76,26 +76,26 @@ CREATE TABLE IF NOT EXISTS USER_LIST
 --ДРУЗЬЯ_ПОЛЬЗОВАТЕЛЯ
 CREATE TABLE IF NOT EXISTS USER_FRIENDS
 (
-    USERFRIENDS_ID   INTEGER auto_increment
+    USER_FRIENDS_ID   INTEGER auto_increment
         unique,
     FRIEND_ID        INTEGER not null,
     USER_ID          INTEGER not null,
     constraint USER_FRIENDS_PK
-        primary key (USERFRIENDS_ID),
+        primary key (USER_FRIENDS_ID),
     constraint USER_FRIENDS_USER_LIST_NULL_FK
         foreign key (USER_ID) references USER_LIST
 );
 
 --ЛАЙКИ
-CREATE TABLE IF NOT EXISTS LIKEFILM
+CREATE TABLE IF NOT EXISTS LIKE_FILM
 (
     FILM_ID INTEGER auto_increment,
     USER_ID INTEGER auto_increment,
-    constraint LIKEFILM_COPY_6_2_CONSTRAINT_7
+    constraint LIKE_FILM_COPY_6_2_CONSTRAINT_7
         primary key (USER_ID),
-    constraint "LIKEFILM_COPY_6_2_likefilm_FILMS_null_fk"
+    constraint "LIKE_FILM_COPY_6_2_like_film_FILMS_null_fk"
         foreign key (FILM_ID) references FILMS,
-    constraint "LIKEFILM_COPY_6_2_likefilm_USER_LIST_null_fk"
+    constraint "LIKE_FILM_COPY_6_2_like_film_USER_LIST_null_fk"
         foreign key (USER_ID) references USER_LIST
 );
 

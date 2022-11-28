@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class FilmController {
 
-    FilmService filmService;
+    private final FilmService filmService;
 
     @Autowired
     public FilmController(FilmService filmService) {

@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 
-
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {

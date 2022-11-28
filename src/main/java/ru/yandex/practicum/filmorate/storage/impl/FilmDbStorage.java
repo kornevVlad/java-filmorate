@@ -91,6 +91,7 @@ public class FilmDbStorage implements FilmStorage {
             setFilmMpa(film);
 
             //DELETE очищает все значения в бд данного фильма
+            //Перед записью новых входящих значений фильма
             String sqlDeleteGenre = "DELETE FROM genre_film WHERE film_id = ?";
             jdbcTemplate.update(sqlDeleteGenre, film.getId());
 
@@ -157,13 +158,13 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public void createLikeFilm(int filmId, int userId) { //добавление лайка для фильма
-        String sql = "INSERT INTO likefilm(film_id, user_id) VALUES (?,?)";
+        String sql = "INSERT INTO like_film(film_id, user_id) VALUES (?,?)";
         jdbcTemplate.update(sql,filmId, userId);
     }
 
     @Override
     public void deleteLikeFilm(int filmId, int userId) { //удаление лайка фильма
-        String sql = "DELETE FROM likefilm WHERE film_id = ? AND user_id = ?";
+        String sql = "DELETE FROM like_film WHERE film_id = ? AND user_id = ?";
         jdbcTemplate.update(sql, filmId, userId);
 
     }
@@ -173,7 +174,7 @@ public class FilmDbStorage implements FilmStorage {
         List<Film>filmsPopular = new ArrayList<>();
 
         SqlRowSet filmRows = jdbcTemplate.queryForRowSet("SELECT * FROM films f " +
-                "LEFT OUTER JOIN likefilm l ON f.film_id = l.film_id " +
+                "LEFT OUTER JOIN like_film l ON f.film_id = l.film_id " +
                 "GROUP BY f.film_id  ORDER BY COUNT(l.user_id)DESC LIMIT ?", count);
         while (filmRows.next()){
             Film film = new Film(
